@@ -24,7 +24,22 @@ class _HomePageState extends State<HomePage> {
         elevation: 0,
         title: Image.asset("assets/logorent.png", width: 100),
 
-        actions: [Icon(Icons.person_4)],
+        actions: [
+          // Icon(Icons.person_4),
+          Container(
+            decoration: BoxDecoration(
+              color: Colors.cyan.shade700,
+              borderRadius: BorderRadius.circular(4),
+            ),
+            width: 35,
+            height: 35,
+            clipBehavior: Clip.antiAlias,
+            child: Image.network(
+              "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSQi50zTLuADwdCHUNWNkOxgIh05Uo3ma8euw&s",
+            ),
+          ),
+          IconButton(onPressed: () {}, icon: Icon(Icons.notifications)),
+        ],
       ),
 
       body: SingleChildScrollView(
@@ -59,7 +74,10 @@ class _HomePageState extends State<HomePage> {
                       children: [
                         Text(
                           "Total Earning",
-                          style: TextStyle(fontWeight: FontWeight.bold),
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: Colors.cyan,
+                          ),
                         ),
                         Text("\$1234.00"),
                       ],
@@ -79,7 +97,10 @@ class _HomePageState extends State<HomePage> {
                       children: [
                         Text(
                           "Total Rating",
-                          style: TextStyle(fontWeight: FontWeight.bold),
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: Colors.cyan,
+                          ),
                         ),
                         Text("4.5 ⭐"),
                       ],
