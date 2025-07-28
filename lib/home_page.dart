@@ -20,35 +20,10 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFFE6FAFF),
       appBar: AppBar(
         elevation: 0,
-        backgroundColor: Colors.white,
-        title: Row(
-          children: [
-            CircleAvatar(
-              backgroundImage: AssetImage(
-                'assets/logo.png',
-              ), // Replace with your image
-              radius: 16,
-            ),
-            SizedBox(width: 10),
-            Text(
-              'The Local Rent',
-              style: TextStyle(
-                color: Colors.black,
-                fontSize: 18,
-                fontWeight: FontWeight.w600,
-              ),
-            ),
-          ],
-        ),
-        actions: [
-          Icon(Icons.notifications_none, color: Colors.black),
-          SizedBox(width: 12),
-          Icon(Icons.person_outline, color: Colors.black),
-          SizedBox(width: 12),
-        ],
+        title: Image.asset("assets/logorent.png"),
+        actions: [Icon(Icons.person_4)],
       ),
 
       body: SingleChildScrollView(
