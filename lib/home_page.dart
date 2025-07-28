@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:rent/notificationpage.dart';
+import 'package:rent/constants/data.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -23,10 +24,20 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
-        title: Image.asset("assets/logorent.png", width: 100),
+        title: Image.asset(AppAssets.logo, width: 100),
 
         actions: [
-          Icon(Icons.person_4),
+          // Icon(Icons.person_4),
+          Container(
+            decoration: BoxDecoration(
+              color: Colors.cyan.shade700,
+              borderRadius: BorderRadius.circular(4),
+            ),
+            width: 35,
+            height: 35,
+            clipBehavior: Clip.antiAlias,
+            child: Image.network(ImagesLinks.profileImage),
+          ),
           IconButton(
             onPressed: () {
               Navigator.push(
@@ -73,7 +84,10 @@ class _HomePageState extends State<HomePage> {
                       children: [
                         Text(
                           "Total Earning",
-                          style: TextStyle(fontWeight: FontWeight.bold),
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: Colors.cyan,
+                          ),
                         ),
                         Text("\$1234.00"),
                       ],
@@ -93,7 +107,10 @@ class _HomePageState extends State<HomePage> {
                       children: [
                         Text(
                           "Total Rating",
-                          style: TextStyle(fontWeight: FontWeight.bold),
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: Colors.cyan,
+                          ),
                         ),
                         Text("4.5 ⭐"),
                       ],
