@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'login.dart';
 import 'signup.dart';
 import 'home_page.dart';
+import 'notificationpage.dart';
 
 void main() {
   runApp(MyApp());
