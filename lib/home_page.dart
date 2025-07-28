@@ -22,7 +22,7 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
-        title: Image.asset("assets/logorent.png"),
+        title: Image.asset("assets/logorent.png", width: 100),
         actions: [Icon(Icons.person_4)],
       ),
 
