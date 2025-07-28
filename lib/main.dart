@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'login.dart';
 import 'signup.dart';
 import 'home_page.dart';
-import 'notificationpage.dart';
 
 void main() {
   runApp(MyApp());
@@ -17,6 +16,7 @@ class MyApp extends StatelessWidget {
       title: 'Rent',
       theme: ThemeData(
         primarySwatch: Colors.indigo,
+        scaffoldBackgroundColor: Colors.grey.shade100,
         appBarTheme: AppBarTheme(backgroundColor: Colors.cyan),
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),

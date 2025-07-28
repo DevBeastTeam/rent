@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:rent/notificationpage.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -22,8 +23,22 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
-        title: Image.asset("assets/logorent.png"),
-        actions: [Icon(Icons.person_4)],
+        title: Image.asset("assets/logorent.png", width: 100),
+
+        actions: [
+          Icon(Icons.person_4),
+          IconButton(
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (BuildContext context) => NotificationPage(),
+                ),
+              );
+            },
+            icon: Icon(Icons.notifications),
+          ),
+        ],
       ),
 
       body: SingleChildScrollView(
@@ -51,7 +66,6 @@ class _HomePageState extends State<HomePage> {
                     height: 80,
                     alignment: Alignment.center,
                     decoration: BoxDecoration(
-                      color: Colors.white,
                       borderRadius: BorderRadius.circular(12),
                     ),
                     child: Column(
@@ -72,7 +86,6 @@ class _HomePageState extends State<HomePage> {
                     height: 80,
                     alignment: Alignment.center,
                     decoration: BoxDecoration(
-                      color: Colors.white,
                       borderRadius: BorderRadius.circular(12),
                     ),
                     child: Column(
@@ -83,6 +96,135 @@ class _HomePageState extends State<HomePage> {
                           style: TextStyle(fontWeight: FontWeight.bold),
                         ),
                         Text("4.5 ⭐"),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            SizedBox(height: 20),
+
+            /// Total Earning + Rating
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(8),
+                  child: Container(
+                    // height: 100,
+                    width: 145,
+                    alignment: Alignment.center,
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(18),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(
+                            Icons.bookmark_border,
+                            color: Colors.cyan,
+                            size: 50,
+                          ),
+                          SizedBox(height: 10),
+                          Text(
+                            " My Favorities",
+                            style: TextStyle(fontWeight: FontWeight.bold),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8),
+                  child: Container(
+                    // height: 80,
+                    width: 145,
+                    alignment: Alignment.center,
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(18),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(
+                            Icons.shopping_cart_outlined,
+                            color: Colors.cyan,
+                            size: 50,
+                          ),
+                          SizedBox(height: 10),
+
+                          Text(
+                            "My Rentals",
+                            style: TextStyle(fontWeight: FontWeight.bold),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+
+            SizedBox(height: 20),
+
+            /// Total Earning + Rating
+            Row(
+              children: [
+                Expanded(
+                  child: Container(
+                    height: 80,
+                    alignment: Alignment.center,
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(Icons.support_agent, color: Colors.cyan, size: 50),
+                        SizedBox(height: 10),
+
+                        Text(
+                          "Help & support",
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: const Color.fromARGB(255, 12, 12, 12),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                SizedBox(width: 12),
+                Expanded(
+                  child: Container(
+                    height: 80,
+                    alignment: Alignment.center,
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(
+                          Icons.article_outlined,
+                          color: Colors.cyan,
+                          size: 50,
+                        ),
+                        SizedBox(height: 10),
+                        Text(
+                          "Blogs",
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        ),
                       ],
                     ),
                   ),

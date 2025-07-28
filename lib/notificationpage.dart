@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
-class notificationpage extends StatefulWidget {
-  const notificationpage({super.key});
+class NotificationPage extends StatefulWidget {
+  const NotificationPage({super.key});
 
   @override
-  State<notificationpage> createState() => _MyWidgetState();
+  State<NotificationPage> createState() => _MyWidgetState();
 }
 
-class _MyWidgetState extends State<notificationpage> {
+class _MyWidgetState extends State<NotificationPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -16,6 +16,7 @@ class _MyWidgetState extends State<notificationpage> {
         title: Image.asset("assets/logorent.png"),
         actions: [Icon(Icons.person_4)],
       ),
+      body: Text(" Notification Users"),
     );
   }
 }
