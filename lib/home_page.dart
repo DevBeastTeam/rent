@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:rent/constants/goto.dart';
+import 'package:rent/listing_page.dart';
+import 'package:rent/my_booking_page.dart';
 import 'package:rent/notificationpage.dart';
 import 'package:rent/constants/data.dart';
+import 'package:rent/profile_details_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -10,15 +14,6 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  int _selectedIndex = 0;
-
-  void _onTabTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-      // navigation logic add krna ho tu yahan kr skty ho
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -273,24 +268,49 @@ class _HomePageState extends State<HomePage> {
         ),
       ),
 
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: _selectedIndex,
-        onTap: _onTabTapped,
-        selectedItemColor: Colors.black,
-        unselectedItemColor: Colors.grey,
-        showUnselectedLabels: true,
-        type: BottomNavigationBarType.fixed,
-        items: [
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-          BottomNavigationBarItem(icon: Icon(Icons.list), label: 'My Listings'),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.calendar_today),
-            label: 'My Bookings',
-          ),
-          BottomNavigationBarItem(icon: Icon(Icons.message), label: 'Messages'),
-          BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profile'),
-        ],
-      ),
+      bottomNavigationBar: BottomNavBarWidget(currentIndex: 0),
+    );
+  }
+}
+
+class BottomNavBarWidget extends StatefulWidget {
+  int currentIndex = 0;
+  BottomNavBarWidget({super.key, this.currentIndex = 0});
+
+  @override
+  State<BottomNavBarWidget> createState() => _BottomNavBarWidgetState();
+}
+
+class _BottomNavBarWidgetState extends State<BottomNavBarWidget> {
+  @override
+  Widget build(BuildContext context) {
+    return BottomNavigationBar(
+      currentIndex: widget.currentIndex,
+      onTap: (index) {
+        if (index == 0) {
+          goto(HomePage());
+        } else if (index == 1) {
+          goto(ListingPage());
+        } else if (index == 2) {
+          goto(MyBookingPage());
+        } else if (index == 4) {
+          goto(ProfileDetailsPage());
+        }
+      },
+      selectedItemColor: Colors.black,
+      unselectedItemColor: Colors.grey,
+      showUnselectedLabels: true,
+      type: BottomNavigationBarType.fixed,
+      items: [
+        BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
+        BottomNavigationBarItem(icon: Icon(Icons.list), label: 'My Listings'),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.calendar_today),
+          label: 'My Bookings',
+        ),
+        BottomNavigationBarItem(icon: Icon(Icons.message), label: 'Messages'),
+        BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profile'),
+      ],
     );
   }
 }
