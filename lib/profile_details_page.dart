@@ -19,9 +19,9 @@ class ProfileDetailsPage extends StatelessWidget {
         padding: const EdgeInsets.all(20),
         child: Column(
           children: [
-            CircleAvatar(
+            const CircleAvatar(
               radius: 50,
-              backgroundImage: const AssetImage('assets/images/profile.png'),
+              backgroundImage: AssetImage('assets/images/profile.png'),
             ),
             const SizedBox(height: 20),
             const Text(
@@ -35,11 +35,14 @@ class ProfileDetailsPage extends StatelessWidget {
             ),
             const Text("+92 300 0000000", style: TextStyle(color: Colors.grey)),
             const SizedBox(height: 30),
+
+            // Update Profile Button
             SizedBox(
               width: double.infinity,
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
                   backgroundColor: const Color.fromARGB(255, 5, 5, 5),
+                  padding: const EdgeInsets.symmetric(vertical: 14),
                 ),
                 onPressed: () {
                   Navigator.push(
@@ -51,7 +54,31 @@ class ProfileDetailsPage extends StatelessWidget {
                 },
                 child: const Text(
                   "Update Profile",
-                  style: TextStyle(color: Colors.white),
+                  style: TextStyle(color: Colors.white, fontSize: 16),
+                ),
+              ),
+            ),
+
+            const SizedBox(height: 12),
+
+            // Edit Listing Button
+            SizedBox(
+              width: double.infinity,
+              child: ElevatedButton.icon(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.cyan[700],
+                  padding: const EdgeInsets.symmetric(vertical: 14),
+                ),
+                onPressed: () {
+                  // TODO: Replace this with your navigation or logic
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(content: Text("Edit Listing pressed")),
+                  );
+                },
+                icon: const Icon(Icons.edit, color: Colors.white),
+                label: const Text(
+                  "Edit Listing",
+                  style: TextStyle(color: Colors.white, fontSize: 16),
                 ),
               ),
             ),

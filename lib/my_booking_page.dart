@@ -7,13 +7,12 @@ class MyBookingPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey[100], // Light background for contrast
+      backgroundColor: Colors.grey[100],
       appBar: AppBar(
         title: const Text(
           "My Bookings",
           style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
         ),
-
         backgroundColor: Colors.cyan,
         iconTheme: const IconThemeData(color: Colors.black),
         elevation: 1,
@@ -44,6 +43,14 @@ class MyBookingPage extends StatelessWidget {
       "25 December 2025",
     ];
 
+    final List<String> imageUrls = [
+      "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80", // Luxury Villa
+      "https://images.unsplash.com/photo-1568605114967-8130f3a36994?auto=format&fit=crop&w=800&q=80", // Apartment
+      "https://images.unsplash.com/photo-1572120360610-d971b9b78836?auto=format&fit=crop&w=800&q=80", // Studio Flat
+      "https://images.unsplash.com/photo-1505691938895-1758d7feb511?auto=format&fit=crop&w=800&q=80", // Beachfront
+      "https://images.unsplash.com/photo-1613977257363-707ba934822c?auto=format&fit=crop&w=800&q=80", // Condo
+    ];
+
     return Container(
       margin: const EdgeInsets.only(bottom: 16),
       decoration: BoxDecoration(
@@ -62,8 +69,8 @@ class MyBookingPage extends StatelessWidget {
         children: [
           ClipRRect(
             borderRadius: const BorderRadius.vertical(top: Radius.circular(12)),
-            child: Image.asset(
-              'assets/images/listing1.png',
+            child: Image.network(
+              imageUrls[index],
               height: 140,
               width: double.infinity,
               fit: BoxFit.cover,
