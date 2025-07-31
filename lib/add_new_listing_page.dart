@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:rent/ListingDetailPage.dart';
+import 'package:rent/listing_edit_page.dart';
 
 class AddNewListingPage extends StatelessWidget {
   const AddNewListingPage({super.key});
@@ -23,12 +24,13 @@ class AddNewListingPage extends StatelessWidget {
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => const ListingDetailPage(
-                listing: {},
-                // title: 'Demo Title',
-                // imageUrl: 'assets/images/listing1.png',
-                // description: 'This is a preview of your listing details.',
-              ),
+              builder: (context) => const ListingEditPage(),
+              // builder: (context) => const ListingDetailPage(
+              //   listing: {},
+              //   // title: 'Demo Title',
+              //   // imageUrl: 'assets/images/listing1.png',
+              //   // description: 'This is a preview of your listing details.',
+              // ),
             ),
           );
         },

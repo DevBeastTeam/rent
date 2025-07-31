@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'add_new_listing_page.dart';
 import 'listing_edit_page.dart';
 
-class ListingPage extends StatelessWidget {
-  const ListingPage({super.key});
+class ListingEditPage extends StatelessWidget {
+  const ListingEditPage({super.key});
 
   final List<Map<String, String>> listings = const [
     {
