@@ -36,7 +36,7 @@ class _FavouriteState extends State<Favourite> {
                     borderRadius: BorderRadius.circular(14),
                     boxShadow: [
                       BoxShadow(
-                        color: Colors.cyan.withOpacity(0.2),
+                        color: Colors.grey.withOpacity(0.2),
                         blurRadius: 8,
                         offset: Offset(0, 4),
                       ),
