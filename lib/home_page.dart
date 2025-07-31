@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:rent/constants/goto.dart';
+import 'package:rent/fvrt.dart';
+import 'package:rent/help.dart';
 import 'package:rent/listing_page.dart';
 import 'package:rent/my_booking_page.dart';
 import 'package:rent/notificationpage.dart';
@@ -123,30 +125,38 @@ class _HomePageState extends State<HomePage> {
               children: [
                 Padding(
                   padding: const EdgeInsets.all(8),
-                  child: Container(
-                    // height: 100,
-                    width: 145,
-                    alignment: Alignment.center,
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.all(18),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Icon(
-                            Icons.bookmark_border,
-                            color: Colors.cyan,
-                            size: 50,
-                          ),
-                          SizedBox(height: 10),
-                          Text(
-                            " My Favorities",
-                            style: TextStyle(fontWeight: FontWeight.bold),
-                          ),
-                        ],
+                  child: InkWell(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => Favourite()),
+                      );
+                    },
+                    child: Container(
+                      // height: 100,
+                      width: 145,
+                      alignment: Alignment.center,
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.all(18),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(
+                              Icons.bookmark_border,
+                              color: Colors.cyan,
+                              size: 50,
+                            ),
+                            SizedBox(height: 10),
+                            Text(
+                              " My Favorities",
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ),
@@ -191,27 +201,39 @@ class _HomePageState extends State<HomePage> {
             Row(
               children: [
                 Expanded(
-                  child: Container(
-                    height: 80,
-                    alignment: Alignment.center,
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Icon(Icons.support_agent, color: Colors.cyan, size: 50),
-                        SizedBox(height: 10),
-
-                        Text(
-                          "Help & support",
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            color: const Color.fromARGB(255, 12, 12, 12),
+                  child: InkWell(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => Help()),
+                      );
+                    },
+                    child: Container(
+                      height: 80,
+                      alignment: Alignment.center,
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(
+                            Icons.support_agent,
+                            color: Colors.cyan,
+                            size: 50,
                           ),
-                        ),
-                      ],
+                          SizedBox(height: 10),
+
+                          Text(
+                            "Help & support",
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              color: const Color.fromARGB(255, 12, 12, 12),
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ),

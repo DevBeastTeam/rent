@@ -19,9 +19,48 @@ class ProfileDetailsPage extends StatelessWidget {
         padding: const EdgeInsets.all(20),
         child: Column(
           children: [
-            CircleAvatar(
-              radius: 50,
-              backgroundImage: const AssetImage('assets/images/profile.png'),
+            Stack(
+              children: [
+                const CircleAvatar(
+                  radius: 50,
+                  backgroundImage: AssetImage('assets/images/profile.png'),
+                ),
+                Positioned(
+                  bottom: 0,
+                  right: 6,
+                  child: Container(
+                    width: 38,
+                    height: 38,
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      shape: BoxShape.circle,
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black26,
+                          blurRadius: 4,
+                          offset: Offset(0, 2),
+                        ),
+                      ],
+                    ),
+                    child: IconButton(
+                      padding: EdgeInsets.zero,
+                      icon: const Icon(
+                        Icons.camera_alt_sharp,
+                        color: Colors.black,
+                        size: 16,
+                      ),
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (_) => const ProfileUpdatePage(),
+                          ),
+                        );
+                      },
+                    ),
+                  ),
+                ),
+              ],
             ),
             const SizedBox(height: 20),
             const Text(
@@ -34,6 +73,39 @@ class ProfileDetailsPage extends StatelessWidget {
               style: TextStyle(color: Colors.grey),
             ),
             const Text("+92 300 0000000", style: TextStyle(color: Colors.grey)),
+
+            SizedBox(height: 20),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Text(
+                  "verifyed by",
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black45,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+                SizedBox(width: 15),
+                Text(
+                  "google",
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                    color: const Color.fromARGB(255, 13, 13, 15),
+                  ),
+                ),
+
+                const SizedBox(width: 10),
+                CircleAvatar(
+                  radius: 20,
+                  child: Icon(Icons.verified, color: Colors.white, size: 20),
+                  backgroundColor: Colors.green,
+                ),
+              ],
+            ),
+
             const SizedBox(height: 30),
             SizedBox(
               width: double.infinity,
@@ -52,6 +124,37 @@ class ProfileDetailsPage extends StatelessWidget {
                 child: const Text(
                   "Update Profile",
                   style: TextStyle(color: Colors.white),
+                ),
+              ),
+            ),
+
+            const SizedBox(height: 200),
+            Center(
+              child: Padding(
+                padding: const EdgeInsets.only(left: 260),
+                child: Container(
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: Colors.white,
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black12,
+                        blurRadius: 8,
+                        offset: Offset(2, 2),
+                      ),
+                    ],
+                  ),
+                  child: IconButton(
+                    icon: const Icon(Icons.edit, color: Colors.black),
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (_) => const ProfileUpdatePage(),
+                        ),
+                      );
+                    },
+                  ),
                 ),
               ),
             ),
