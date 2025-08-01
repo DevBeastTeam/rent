@@ -1,7 +1,478 @@
 import 'package:flutter/material.dart';
-import 'add_new_listing_page.dart';
-import 'listing_edit_page.dart';
 
+class EditListingPage extends StatefulWidget {
+  final String? title;
+  final String? price;
+  final String? rating;
+  final String? imageUrl;
+
+  const EditListingPage({
+    super.key,
+    this.title,
+    this.price,
+    this.rating,
+    this.imageUrl,
+  });
+
+  @override
+  State<EditListingPage> createState() => _EditListingPageState();
+}
+
+class _EditListingPageState extends State<EditListingPage> {
+  final _formKey = GlobalKey<FormState>();
+  final _titleController = TextEditingController();
+  final _descriptionController = TextEditingController();
+  final _dailyRateController = TextEditingController();
+  final _weeklyRateController = TextEditingController();
+  final _monthlyRateController = TextEditingController();
+
+  String? _selectedCategory = 'Electronics';
+  List<String> _selectedImages = [];
+
+  final List<String> _categories = [
+    'Electronics',
+    'Furniture',
+    'Vehicles',
+    'Tools & Equipment',
+    'Sports & Recreation',
+    'Clothing & Accessories',
+    'Books & Media',
+    'Home & Garden',
+    'Musical Instruments',
+    'Other',
+  ];
+
+  @override
+  void initState() {
+    super.initState();
+    // Pre-fill form with existing data
+    _titleController.text = 'Electrical Box';
+    _descriptionController.text =
+        'Electrical Box\nVintage model 23\nOnly used 6 months';
+    _dailyRateController.text = '0';
+    _weeklyRateController.text = '0';
+    _monthlyRateController.text = '0';
+  }
+
+  @override
+  void dispose() {
+    _titleController.dispose();
+    _descriptionController.dispose();
+    _dailyRateController.dispose();
+    _weeklyRateController.dispose();
+    _monthlyRateController.dispose();
+    super.dispose();
+  }
+
+  Future<void> _pickImages() async {
+    setState(() {
+      _selectedImages.add(
+        'assets/images/sample${_selectedImages.length + 1}.jpg',
+      );
+    });
+
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(
+        content: Text('Image added! (Demo mode)'),
+        duration: Duration(seconds: 1),
+      ),
+    );
+  }
+
+  void _removeImage(int index) {
+    setState(() {
+      _selectedImages.removeAt(index);
+    });
+  }
+
+  void _updateListing() {
+    if (_formKey.currentState!.validate()) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Listing updated successfully!'),
+          backgroundColor: Colors.green,
+        ),
+      );
+      Navigator.pop(context);
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Colors.grey[50],
+      appBar: AppBar(
+        title: const Text(
+          'Edit Listing',
+          style: TextStyle(fontWeight: FontWeight.w600, color: Colors.black87),
+        ),
+        backgroundColor: Colors.white,
+        elevation: 1,
+        iconTheme: const IconThemeData(color: Colors.black87),
+        centerTitle: true,
+      ),
+      body: Form(
+        key: _formKey,
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              // Category Selection
+              _buildSectionLabel('Category'),
+              const SizedBox(height: 8),
+              Container(
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(8),
+                  border: Border.all(color: Colors.grey[300]!),
+                ),
+                child: DropdownButtonFormField<String>(
+                  value: _selectedCategory,
+                  decoration: const InputDecoration(
+                    border: InputBorder.none,
+                    contentPadding: EdgeInsets.symmetric(
+                      horizontal: 16,
+                      vertical: 12,
+                    ),
+                  ),
+                  items: _categories.map((category) {
+                    return DropdownMenuItem(
+                      value: category,
+                      child: Text(category),
+                    );
+                  }).toList(),
+                  onChanged: (value) {
+                    setState(() {
+                      _selectedCategory = value;
+                    });
+                  },
+                ),
+              ),
+
+              const SizedBox(height: 20),
+
+              // Item Title
+              _buildSectionLabel('Item Title'),
+              const SizedBox(height: 8),
+              _buildTextField(
+                controller: _titleController,
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please enter item title';
+                  }
+                  return null;
+                },
+              ),
+
+              const SizedBox(height: 20),
+
+              // Item Description
+              _buildSectionLabel('Item Description'),
+              const SizedBox(height: 8),
+              Container(
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(8),
+                  border: Border.all(color: Colors.grey[300]!),
+                ),
+                child: Column(
+                  children: [
+                    // Rich Text Toolbar
+                    Container(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 8,
+                        vertical: 4,
+                      ),
+                      decoration: BoxDecoration(
+                        color: Colors.grey[100],
+                        borderRadius: const BorderRadius.only(
+                          topLeft: Radius.circular(8),
+                          topRight: Radius.circular(8),
+                        ),
+                      ),
+                      child: SingleChildScrollView(
+                        scrollDirection: Axis.horizontal,
+                        child: Row(
+                          children: [
+                            const Text(
+                              'Paragraph',
+                              style: TextStyle(fontSize: 12),
+                            ),
+                            const SizedBox(width: 8),
+                            _buildToolbarButton(Icons.format_bold, () {}),
+                            _buildToolbarButton(Icons.format_italic, () {}),
+                            _buildToolbarButton(Icons.link, () {}),
+                            _buildToolbarButton(
+                              Icons.format_list_bulleted,
+                              () {},
+                            ),
+                            _buildToolbarButton(
+                              Icons.format_list_numbered,
+                              () {},
+                            ),
+                            _buildToolbarButton(
+                              Icons.format_indent_increase,
+                              () {},
+                            ),
+                            _buildToolbarButton(
+                              Icons.format_indent_decrease,
+                              () {},
+                            ),
+                            _buildToolbarButton(Icons.image, () {}),
+                            _buildToolbarButton(Icons.format_quote, () {}),
+                          ],
+                        ),
+                      ),
+                    ),
+                    // Text Area
+                    TextFormField(
+                      controller: _descriptionController,
+                      maxLines: 6,
+                      decoration: const InputDecoration(
+                        border: InputBorder.none,
+                        contentPadding: EdgeInsets.all(16),
+                      ),
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please enter item description';
+                        }
+                        return null;
+                      },
+                    ),
+                  ],
+                ),
+              ),
+
+              const SizedBox(height: 20),
+
+              // Pricing Section
+              Row(
+                children: [
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        _buildSectionLabel('Daily Rate'),
+                        const SizedBox(height: 8),
+                        _buildTextField(
+                          controller: _dailyRateController,
+                          keyboardType: TextInputType.number,
+                        ),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(width: 12),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        _buildSectionLabel('Weekly Rate'),
+                        const SizedBox(height: 8),
+                        _buildTextField(
+                          controller: _weeklyRateController,
+                          keyboardType: TextInputType.number,
+                        ),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(width: 12),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        _buildSectionLabel('Monthly Rate'),
+                        const SizedBox(height: 8),
+                        _buildTextField(
+                          controller: _monthlyRateController,
+                          keyboardType: TextInputType.number,
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+
+              const SizedBox(height: 20),
+
+              // Pick Images Section
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  _buildSectionLabel('Pick Images'),
+                  TextButton.icon(
+                    onPressed: _pickImages,
+                    icon: const Icon(Icons.upload, size: 18),
+                    label: const Text('Upload Images'),
+                    style: TextButton.styleFrom(
+                      backgroundColor: Colors.blue[50],
+                      foregroundColor: Colors.blue[700],
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 12,
+                        vertical: 8,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+
+              const SizedBox(height: 12),
+
+              // Images Display
+              Container(
+                width: double.infinity,
+                height: 200,
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(8),
+                  border: Border.all(color: Colors.grey[300]!),
+                ),
+                child: _selectedImages.isEmpty
+                    ? const Center(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(
+                              Icons.image_outlined,
+                              size: 48,
+                              color: Colors.grey,
+                            ),
+                            SizedBox(height: 8),
+                            Text(
+                              'No Images',
+                              style: TextStyle(
+                                color: Colors.grey,
+                                fontSize: 16,
+                              ),
+                            ),
+                          ],
+                        ),
+                      )
+                    : GridView.builder(
+                        padding: const EdgeInsets.all(8),
+                        gridDelegate:
+                            const SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: 3,
+                              crossAxisSpacing: 8,
+                              mainAxisSpacing: 8,
+                            ),
+                        itemCount: _selectedImages.length,
+                        itemBuilder: (context, index) {
+                          return Stack(
+                            children: [
+                              Container(
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(8),
+                                  color: Colors.grey[200],
+                                  border: Border.all(color: Colors.grey[300]!),
+                                ),
+                                child: const Center(
+                                  child: Icon(
+                                    Icons.image,
+                                    color: Colors.grey,
+                                    size: 24,
+                                  ),
+                                ),
+                              ),
+                              Positioned(
+                                top: 4,
+                                right: 4,
+                                child: GestureDetector(
+                                  onTap: () => _removeImage(index),
+                                  child: Container(
+                                    width: 20,
+                                    height: 20,
+                                    decoration: const BoxDecoration(
+                                      color: Colors.red,
+                                      shape: BoxShape.circle,
+                                    ),
+                                    child: const Icon(
+                                      Icons.close,
+                                      color: Colors.white,
+                                      size: 14,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          );
+                        },
+                      ),
+              ),
+
+              const SizedBox(height: 30),
+
+              // Update Button
+              SizedBox(
+                width: double.infinity,
+                height: 50,
+                child: ElevatedButton(
+                  onPressed: _updateListing,
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.cyan,
+                    foregroundColor: Colors.white,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                  ),
+                  child: const Text(
+                    'Update Listing',
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildSectionLabel(String label) {
+    return Text(
+      label,
+      style: const TextStyle(
+        fontSize: 14,
+        fontWeight: FontWeight.w500,
+        color: Colors.black87,
+      ),
+    );
+  }
+
+  Widget _buildTextField({
+    required TextEditingController controller,
+    TextInputType? keyboardType,
+    String? Function(String?)? validator,
+  }) {
+    return Container(
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(8),
+        border: Border.all(color: Colors.grey[300]!),
+      ),
+      child: TextFormField(
+        controller: controller,
+        keyboardType: keyboardType,
+        validator: validator,
+        decoration: const InputDecoration(
+          border: InputBorder.none,
+          contentPadding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildToolbarButton(IconData icon, VoidCallback onPressed) {
+    return IconButton(
+      onPressed: onPressed,
+      icon: Icon(icon, size: 18, color: Colors.grey[600]),
+      padding: const EdgeInsets.all(4),
+      constraints: const BoxConstraints(minWidth: 32, minHeight: 32),
+    );
+  }
+}
+
+// Updated ListingEditPage with navigation to EditListingPage
 class ListingEditPage extends StatelessWidget {
   const ListingEditPage({super.key});
 
@@ -130,18 +601,6 @@ class ListingBox extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      // onTap: () {
-      //   Navigator.push(
-      //     context,
-      //     // MaterialPageRoute(
-      //     //   builder: (context) => ListingDetailPage(
-      //     //     title: title,
-      //     //     imageUrl: image,
-      //     //     description: "$price - $rating",
-      //     //   ),
-      //     // ),
-      //   );
-      // },
       child: Container(
         decoration: BoxDecoration(
           color: Colors.white,
@@ -176,17 +635,17 @@ class ListingBox extends StatelessWidget {
                   child: Row(
                     children: [
                       _iconCircle(Icons.edit, Colors.cyan, () {
-                        // Navigator.push(
-                        //   context,
-                        //   MaterialPageRoute(
-                        //     builder: (context) => ListingEditPage(
-                        //       title: title,
-                        //       price: price,
-                        //       rating: rating,
-                        //       imageUrl: image,
-                        //     ),
-                        //   ),
-                        // );
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => EditListingPage(
+                              title: title,
+                              price: price,
+                              rating: rating,
+                              imageUrl: image,
+                            ),
+                          ),
+                        );
                       }),
                       const SizedBox(width: 5),
                       _iconCircle(Icons.delete, Colors.red, () {
@@ -240,6 +699,22 @@ class ListingBox extends StatelessWidget {
         ),
         child: Icon(icon, size: 14, color: color),
       ),
+    );
+  }
+}
+
+// Placeholder for AddNewListingPage import
+class AddNewListingPage extends StatelessWidget {
+  const AddNewListingPage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Add New Listing'),
+        backgroundColor: Colors.cyan,
+      ),
+      body: const Center(child: Text('Add New Listing Page')),
     );
   }
 }
