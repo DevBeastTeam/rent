@@ -1,9 +1,35 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:rent/home_page.dart';
+import 'package:rent/login.dart';
+
+import 'constants/data.dart';
+import 'home_page.dart';
 import 'profile_update_page.dart';
 
-class ProfileDetailsPage extends StatelessWidget {
+// Profile update page with full UI and fields
+class ProfileDetailsPage extends StatefulWidget {
   const ProfileDetailsPage({super.key});
+
+  @override
+  State<ProfileDetailsPage> createState() => _ProfileDetailsPageState();
+}
+
+class _ProfileDetailsPageState extends State<ProfileDetailsPage> {
+  final nameController = TextEditingController(text: "John David");
+  final phoneController = TextEditingController(text: "03012345678");
+  final emailController = TextEditingController(
+    text: "hasanameer386@gmail.com",
+  );
+  final aboutController = TextEditingController(
+    text: "Avid traveler\nEnjoy mountains and outdoors",
+  );
+  final addressController = TextEditingController(
+    text: "2452 Rooney Rd\nChattanooga , TN 21497",
+  );
+
+  bool sendEmails = true;
+  bool acceptPrivacy = false;
+  bool acceptTerms = false;
 
   @override
   Widget build(BuildContext context) {
@@ -16,150 +42,137 @@ class ProfileDetailsPage extends StatelessWidget {
         iconTheme: const IconThemeData(color: Colors.black),
       ),
       body: Padding(
-        padding: const EdgeInsets.all(20),
-        child: Column(
-          children: [
-            Stack(
-              children: [
-                const CircleAvatar(
-                  radius: 50,
-                  backgroundImage: AssetImage('assets/images/profile.png'),
-                ),
-                Positioned(
-                  bottom: 0,
-                  right: 6,
-                  child: Container(
-                    width: 38,
-                    height: 38,
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      shape: BoxShape.circle,
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.black26,
-                          blurRadius: 4,
-                          offset: Offset(0, 2),
+        padding: const EdgeInsets.symmetric(horizontal: 14),
+        child: SingleChildScrollView(
+          controller: ScrollController(),
+          child: Column(
+            children: [
+              SizedBox(height: 15),
+              Stack(
+                children: [
+                  ClipRRect(
+                    borderRadius: BorderRadiusGeometry.circular(100),
+                    child: CircleAvatar(
+                      radius: 50,
+                      backgroundImage: NetworkImage(ImagesLinks.profileImage),
+                    ),
+                  ),
+                  Positioned(
+                    bottom: 0,
+                    right: 0,
+                    child: CircleAvatar(
+                      backgroundColor: Colors.black45,
+                      child: IconButton(
+                        padding: EdgeInsets.zero,
+                        icon: const Icon(
+                          Icons.camera_alt_sharp,
+                          color: Colors.white,
+                          size: 16,
                         ),
-                      ],
-                    ),
-                    child: IconButton(
-                      padding: EdgeInsets.zero,
-                      icon: const Icon(
-                        Icons.camera_alt_sharp,
-                        color: Colors.black,
-                        size: 16,
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (_) => const ProfileUpdatePage(),
+                            ),
+                          );
+                        },
                       ),
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (_) => const ProfileUpdatePage(),
-                          ),
-                        );
-                      },
                     ),
                   ),
-                ),
-              ],
-            ),
-            const SizedBox(height: 20),
-            const Text(
-              "Reeb A",
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-            ),
-            const SizedBox(height: 8),
-            const Text(
-              "reeb@example.com",
-              style: TextStyle(color: Colors.grey),
-            ),
-            const Text("+92 300 0000000", style: TextStyle(color: Colors.grey)),
-
-            SizedBox(height: 20),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                const Text(
-                  "verifyed by",
-                  style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black45,
-                  ),
-                  textAlign: TextAlign.center,
-                ),
-                SizedBox(width: 15),
-                Text(
-                  "google",
-                  style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
-                    color: const Color.fromARGB(255, 13, 13, 15),
-                  ),
-                ),
-
-                const SizedBox(width: 10),
-                CircleAvatar(
-                  radius: 20,
-                  child: Icon(Icons.verified, color: Colors.white, size: 20),
-                  backgroundColor: Colors.green,
-                ),
-              ],
-            ),
-
-            const SizedBox(height: 30),
-            SizedBox(
-              width: double.infinity,
-              child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color.fromARGB(255, 5, 5, 5),
-                ),
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (_) => const ProfileUpdatePage(),
-                    ),
-                  );
-                },
-                child: const Text(
-                  "Update Profile",
-                  style: TextStyle(color: Colors.white),
+                ],
+              ),
+              const SizedBox(height: 20),
+              ListTile(
+                title: const Text(
+                  "Reeb A",
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                 ),
               ),
-            ),
+              Divider(),
+              CupertinoListTile(
+                title: const Text(
+                  "Email",
+                  style: TextStyle(color: Colors.grey, fontSize: 11),
+                ),
+                subtitle: const Text(
+                  "reeb@example.com",
+                  style: TextStyle(color: Colors.black, fontSize: 15),
+                ),
+              ),
+              Divider(),
+              CupertinoListTile(
+                title: const Text(
+                  "Phone Number",
+                  style: TextStyle(color: Colors.grey, fontSize: 11),
+                ),
+                subtitle: const Text(
+                  "+92 300 0000000",
+                  style: TextStyle(color: Colors.black, fontSize: 15),
+                ),
+              ),
+              Divider(),
+              CupertinoListTile(
+                title: const Text(
+                  "Address",
+                  style: TextStyle(color: Colors.grey, fontSize: 11),
+                ),
+                subtitle: const Text(
+                  "Pakistan Abc Lahore",
+                  style: TextStyle(color: Colors.black, fontSize: 15),
+                ),
+              ),
+              Divider(),
+              CupertinoListTile(
+                title: const Text(
+                  "About Us",
+                  style: TextStyle(color: Colors.grey, fontSize: 11),
+                ),
+                subtitle: const Text(
+                  "Abc something about us",
+                  style: TextStyle(color: Colors.black, fontSize: 15),
+                ),
+              ),
 
-            const SizedBox(height: 200),
-            Center(
-              child: Padding(
-                padding: const EdgeInsets.only(left: 260),
-                child: Container(
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: Colors.white,
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black12,
-                        blurRadius: 8,
-                        offset: Offset(2, 2),
+              SizedBox(height: MediaQuery.of(context).size.height * 0.1),
+              SizedBox(
+                width: double.infinity,
+                child: OutlinedButton(
+                  style: ElevatedButton.styleFrom(
+                    // backgroundColor: const Color.fromARGB(255, 5, 5, 5),
+                  ),
+                  onPressed: () {
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(builder: (_) => const LoginPage()),
+                    );
+                  },
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Text(
+                        "Logout",
+                        style: TextStyle(color: Colors.deepOrange),
                       ),
+                      SizedBox(width: 10),
+                      Icon(Icons.exit_to_app, color: Colors.deepOrange),
                     ],
                   ),
-                  child: IconButton(
-                    icon: const Icon(Icons.edit, color: Colors.black),
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (_) => const ProfileUpdatePage(),
-                        ),
-                      );
-                    },
-                  ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
+      ),
+      floatingActionButton: FloatingActionButton.small(
+        backgroundColor: Colors.black,
+        child: Icon(Icons.edit, color: Colors.white),
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (_) => const ProfileUpdatePage()),
+          );
+        },
       ),
       bottomNavigationBar: BottomNavBarWidget(currentIndex: 4),
     );

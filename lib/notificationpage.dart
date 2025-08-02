@@ -15,7 +15,7 @@ class _MyWidgetState extends State<NotificationPage> {
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
-        title: Image.asset(AppAssets.logo, width: 100),
+        title: Image.asset(ImagePaths.logo, width: 100),
 
         actions: [
           // Icon(Icons.person_4),
