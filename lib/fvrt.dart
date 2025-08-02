@@ -28,12 +28,13 @@ class _FavouriteState extends State<Favourite> {
             SizedBox(height: 10),
             Center(
               child: Padding(
-                padding: const EdgeInsets.all(14.0),
+                padding: const EdgeInsets.all(20.0),
                 child: Container(
+                  height: 50,
                   decoration: BoxDecoration(
                     color: Colors.white.withOpacity(0.9),
-                    border: Border.all(color: Colors.cyan, width: 2),
-                    borderRadius: BorderRadius.circular(14),
+                    border: Border.all(color: Colors.black, width: 2),
+                    borderRadius: BorderRadius.circular(30),
                     boxShadow: [
                       BoxShadow(
                         color: Colors.grey.withOpacity(0.2),
@@ -61,8 +62,11 @@ class _FavouriteState extends State<Favourite> {
                       ),
                       SizedBox(width: 8),
                       CircleAvatar(
-                        backgroundColor: Colors.white.withOpacity(0.8),
-                        child: Text('Go', style: TextStyle(color: Colors.cyan)),
+                        backgroundColor: Colors.black.withOpacity(0.8),
+                        child: Text(
+                          'Go',
+                          style: TextStyle(color: Colors.white),
+                        ),
                       ),
                     ],
                   ),
